@@ -1,3 +1,7 @@
+## 1.0.2
+
+* TODO: Criado função para calculo de termpo de execução.
+
 ## 1.0.1
 
 * TODO: Correção do bug dos testes gerados pela ausência da pasta example.
