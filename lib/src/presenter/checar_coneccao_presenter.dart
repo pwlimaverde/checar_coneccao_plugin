@@ -6,11 +6,15 @@ import '../repositories/checar_coneccao_repository.dart';
 import '../datasources/connectivity_datasource.dart';
 
 class ChecarConeccaoPresenter {
+  final Connectivity? connectivity;
+
+  ChecarConeccaoPresenter({this.connectivity});
+
   Future<RetornoSucessoOuErro<bool>> consultaConectividade() async {
     RetornoSucessoOuErro<bool> resultado = await ChecarConeccaoUsecase(
       repositorio: ChecarConeccaoRepositorio(
         datasource: ConnectivityDatasource(
-          connectivity: Connectivity(),
+          connectivity: connectivity ?? Connectivity(),
         ),
       ),
     )(parametros: NoParams());
