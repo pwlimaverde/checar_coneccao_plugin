@@ -1,5 +1,6 @@
 import 'package:checar_coneccao_plugin/src/usecases/checar_coneccao_usecase.dart';
 import 'package:checar_coneccao_plugin/src/utilitarios/erros_coneccao.dart';
+import 'package:checar_coneccao_plugin/src/utilitarios/tempo_execucao.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
@@ -10,13 +11,16 @@ class RepositorioMock extends Mock implements Repositorio<bool, NoParams> {}
 void main() {
   late Repositorio<bool, NoParams> repositorio;
   late UseCase<bool, NoParams> checarConeccaoUseCase;
+  late TempoExecucao tempo;
 
   setUp(() {
+    tempo = TempoExecucao();
     repositorio = RepositorioMock();
     checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
   });
 
   test('Deve retornar um sucesso com true', () async {
+    tempo.iniciar();
     when(repositorio)
         .calls(#call)
         .thenAnswer((_) => Future.value(SucessoRetorno<bool>(resultado: true)));
@@ -61,6 +65,8 @@ void main() {
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
     )}");
+    tempo.terminar();
+    print("Tempo de execução: ${tempo.calcularExecucao()}ms");
     expect(result, isA<ErroRetorno<bool>>());
   });
 }

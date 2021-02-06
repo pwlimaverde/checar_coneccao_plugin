@@ -17,7 +17,8 @@ void main() {
     when(data)
         .calls(#checkConnectivity)
         .thenAnswer((_) => Future.value(ConnectivityResult.wifi));
-    final result = await ChecarConeccaoPresenter(connectivity: data)
+    final result = await ChecarConeccaoPresenter(
+            connectivity: data, mostrarTempoExecucao: true)
         .consultaConectividade();
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
@@ -30,7 +31,8 @@ void main() {
     when(data)
         .calls(#checkConnectivity)
         .thenAnswer((_) => Future.value(ConnectivityResult.mobile));
-    final result = await ChecarConeccaoPresenter(connectivity: data)
+    final result = await ChecarConeccaoPresenter(
+            connectivity: data, mostrarTempoExecucao: true)
         .consultaConectividade();
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
@@ -43,7 +45,8 @@ void main() {
     when(data)
         .calls(#checkConnectivity)
         .thenAnswer((_) => Future.value(ConnectivityResult.none));
-    final result = await ChecarConeccaoPresenter(connectivity: data)
+    final result = await ChecarConeccaoPresenter(
+            connectivity: data, mostrarTempoExecucao: true)
         .consultaConectividade();
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
@@ -56,7 +59,8 @@ void main() {
       'Deve retornar um ErroRetorno com Erro ao recuperar informação de conexão Cod.02-1',
       () async {
     when(data).calls(#checkConnectivity).thenThrow(Exception());
-    final result = await ChecarConeccaoPresenter(connectivity: data)
+    final result = await ChecarConeccaoPresenter(
+            connectivity: data, mostrarTempoExecucao: true)
         .consultaConectividade();
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
