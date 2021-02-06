@@ -50,6 +50,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0-nullsafety.5"
+  connectivity:
+    dependency: transitive
+    description:
+      name: connectivity
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0-nullsafety.3"
+  connectivity_macos:
+    dependency: transitive
+    description:
+      name: connectivity_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0-nullsafety"
+  connectivity_platform_interface:
+    dependency: transitive
+    description:
+      name: connectivity_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0-nullsafety.1"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -95,6 +116,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0-nullsafety.3"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0-nullsafety.1"
+  retorno_sucesso_ou_erro_package:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "333c15e3be31043c7b28038e78c06771d6e70af1"
+      url: "https://github.com/pwlimaverde/retorno_sucesso_ou_erro_package.git"
+    source: git
+    version: "1.0.7"
   sky_engine:
     dependency: transitive
     description: flutter
