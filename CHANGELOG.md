@@ -1,6 +1,10 @@
+## 1.0.1
+
+* TODO: Correção do bug dos testes gerados pela ausência da pasta example.
+
 ## 1.0.0
 
-* TODO: Versão Rstável da consulta status de conecção.
+* TODO: Versão Estável da consulta status de conecção.
 
 ## 0.0.2
 
