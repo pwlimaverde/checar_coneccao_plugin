@@ -1,3 +1,7 @@
+## 1.0.4
+
+* TODO: Reinicio do vercionamento.
+
 ## 1.0.3
 
 * TODO: Refator função para calculo de termpo de execução.
