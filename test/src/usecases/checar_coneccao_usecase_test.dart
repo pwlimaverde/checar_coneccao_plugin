@@ -1,6 +1,5 @@
 import 'package:checar_coneccao_plugin/src/usecases/checar_coneccao_usecase.dart';
 import 'package:checar_coneccao_plugin/src/utilitarios/erros_coneccao.dart';
-import 'package:checar_coneccao_plugin/src/utilitarios/tempo_execucao.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
@@ -29,10 +28,14 @@ void main() {
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
     )}");
+    tempo.terminar();
+    print(
+        "Tempo de Execução do ChecarConeccaoPresenter: ${tempo.calcularExecucao()}ms");
     expect(result, isA<SucessoRetorno<bool>>());
   });
 
   test('Deve retornar um ErrorConeccao com Cod.01-2', () async {
+    tempo.iniciar();
     when(repositorio).calls(#call).thenAnswer(
         (_) => Future.value(SucessoRetorno<bool>(resultado: false)));
     final result = await checarConeccaoUseCase(parametros: NoParams());
@@ -40,11 +43,15 @@ void main() {
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
     )}");
+    tempo.terminar();
+    print(
+        "Tempo de Execução do ChecarConeccaoPresenter: ${tempo.calcularExecucao()}ms");
     expect(result, isA<ErroRetorno<bool>>());
   });
 
   test('Deve retornar um Erro com ErrorConeccao com teste erro datasource',
       () async {
+    tempo.iniciar();
     when(repositorio).calls(#call).thenAnswer((_) => Future.value(
         ErroRetorno<bool>(
             erro: ErrorConeccao(mensagem: "teste erro datasource"))));
@@ -53,12 +60,16 @@ void main() {
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
     )}");
+    tempo.terminar();
+    print(
+        "Tempo de Execução do ChecarConeccaoPresenter: ${tempo.calcularExecucao()}ms");
     expect(result, isA<ErroRetorno<bool>>());
   });
 
   test(
       'Deve retornar um ErrorConeccao com Erro ao recuperar informação de conexão Cod.01-1',
       () async {
+    tempo.iniciar();
     when(repositorio).calls(#call).thenThrow(Exception());
     final result = await checarConeccaoUseCase(parametros: NoParams());
     print("teste result - ${result.fold(
