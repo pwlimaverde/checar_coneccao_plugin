@@ -1,3 +1,7 @@
+## 1.0.5
+
+* TODO: Atualização da dependencia ResultadoSucessoOuErro 1.1.0.
+
 ## 1.0.4
 
 * TODO: Reinicio do vercionamento.
