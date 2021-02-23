@@ -1,3 +1,7 @@
+## 1.0.6
+
+* TODO: Correção do tempo de execução no presenter.
+
 ## 1.0.5
 
 * TODO: Atualização da dependencia ResultadoSucessoOuErro 1.1.0.

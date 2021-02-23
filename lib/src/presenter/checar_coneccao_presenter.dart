@@ -1,19 +1,24 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
 
-import '../usecases/checar_coneccao_usecase.dart';
-import '../repositories/checar_coneccao_repository.dart';
 import '../datasources/connectivity_datasource.dart';
+import '../repositories/checar_coneccao_repository.dart';
+import '../usecases/checar_coneccao_usecase.dart';
 
 class ChecarConeccaoPresenter {
   final Connectivity? connectivity;
-  final bool? mostrarTempoExecucao;
+  final bool mostrarTempoExecucao;
 
-  ChecarConeccaoPresenter({this.connectivity, this.mostrarTempoExecucao});
+  ChecarConeccaoPresenter({
+    this.connectivity,
+    required this.mostrarTempoExecucao,
+  });
 
   Future<RetornoSucessoOuErro<bool>> consultaConectividade() async {
     TempoExecucao tempo = TempoExecucao();
-    tempo.iniciar();
+    if (mostrarTempoExecucao) {
+      tempo.iniciar();
+    }
     RetornoSucessoOuErro<bool> resultado = await ChecarConeccaoUsecase(
       repositorio: ChecarConeccaoRepositorio(
         datasource: ConnectivityDatasource(
@@ -21,7 +26,7 @@ class ChecarConeccaoPresenter {
         ),
       ),
     )(parametros: NoParams());
-    if (mostrarTempoExecucao ?? false) {
+    if (mostrarTempoExecucao) {
       tempo.terminar();
       print(
           "Tempo de Execução do ChecarConeccaoPresenter: ${tempo.calcularExecucao()}ms");
