@@ -1,9 +1,6 @@
+import 'package:checar_coneccao_plugin/src/datasources/connectivity_datasource.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
-
-import '../datasources/connectivity_datasource.dart';
-import '../repositories/checar_coneccao_repository.dart';
-import '../usecases/checar_coneccao_usecase.dart';
 
 class ChecarConeccaoPresenter {
   final Connectivity? connectivity;
@@ -15,22 +12,14 @@ class ChecarConeccaoPresenter {
   });
 
   Future<RetornoSucessoOuErro<bool>> consultaConectividade() async {
-    TempoExecucao tempo = TempoExecucao();
-    if (mostrarTempoExecucao) {
-      tempo.iniciar();
-    }
-    RetornoSucessoOuErro<bool> resultado = await ChecarConeccaoUsecase(
-      repositorio: ChecarConeccaoRepositorio(
-        datasource: ConnectivityDatasource(
-          connectivity: connectivity ?? Connectivity(),
-        ),
+    final resultado = await RetornoResultadoPresenter<bool>(
+      mostrarTempoExecucao: mostrarTempoExecucao,
+      nomeFeature: "Checar Conecção",
+      datasource: ConnectivityDatasource(
+        connectivity: connectivity ?? Connectivity(),
       ),
-    )(parametros: NoParams());
-    if (mostrarTempoExecucao) {
-      tempo.terminar();
-      print(
-          "Tempo de Execução do ChecarConeccaoPresenter: ${tempo.calcularExecucao()}ms");
-    }
+    ).retornoBool(parametros: NoParams(mensagemErro: "Você está offline"));
+
     return resultado;
   }
 }
