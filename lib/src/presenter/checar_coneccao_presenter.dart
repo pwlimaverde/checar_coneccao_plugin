@@ -18,7 +18,7 @@ class ChecarConeccaoPresenter {
       datasource: ConnectivityDatasource(
         connectivity: connectivity ?? Connectivity(),
       ),
-    ).retornoBool(parametros: NoParams(mensagemErro: "Você está offline"));
+    ).retornoResultado(parametros: NoParams(mensagemErro: "Você está offline"));
 
     return resultado;
   }
