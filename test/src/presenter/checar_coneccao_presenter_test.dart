@@ -18,8 +18,9 @@ void main() {
         .calls(#checkConnectivity)
         .thenAnswer((_) => Future.value(ConnectivityResult.wifi));
     final result = await ChecarConeccaoPresenter(
-            connectivity: data, mostrarTempoExecucao: true)
-        .consultaConectividade();
+      connectivity: data,
+      mostrarTempoExecucao: true,
+    ).consultaConectividade();
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
@@ -32,8 +33,9 @@ void main() {
         .calls(#checkConnectivity)
         .thenAnswer((_) => Future.value(ConnectivityResult.mobile));
     final result = await ChecarConeccaoPresenter(
-            connectivity: data, mostrarTempoExecucao: true)
-        .consultaConectividade();
+      connectivity: data,
+      mostrarTempoExecucao: true,
+    ).consultaConectividade();
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
@@ -41,13 +43,16 @@ void main() {
     expect(result, isA<SucessoRetorno<bool>>());
   });
 
-  test('Deve retornar um ErroRetorno com Você está offline Cod.01-2', () async {
+  test(
+      'Deve retornar um ErroRetorno com Você está offline Cod.02-1 Coneção none',
+      () async {
     when(data)
         .calls(#checkConnectivity)
         .thenAnswer((_) => Future.value(ConnectivityResult.none));
     final result = await ChecarConeccaoPresenter(
-            connectivity: data, mostrarTempoExecucao: true)
-        .consultaConectividade();
+      connectivity: data,
+      mostrarTempoExecucao: true,
+    ).consultaConectividade();
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
@@ -55,8 +60,7 @@ void main() {
     expect(result, isA<ErroRetorno<bool>>());
   });
 
-  test(
-      'Deve retornar um ErroRetorno com Erro ao recuperar informação de conexão Cod.02-1',
+  test('Deve retornar um ErroRetorno com Você está offline Cod.02-1 Exeption',
       () async {
     when(data).calls(#checkConnectivity).thenThrow(Exception());
     final result = await ChecarConeccaoPresenter(
