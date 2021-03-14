@@ -1,6 +1,6 @@
-import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
+import 'package:return_success_or_error/return_success_or_error.dart';
 
-class ErrorConeccao implements AppErro {
+class ErrorConeccao implements AppError {
   final String mensagem;
   ErrorConeccao({required this.mensagem});
 
