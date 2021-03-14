@@ -1,6 +1,7 @@
-import 'package:checar_coneccao_plugin/src/datasources/connectivity_datasource.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:return_success_or_error/return_success_or_error.dart';
+
+import '../datasources/connectivity_datasource.dart';
 
 class ChecarConeccaoPresenter {
   final Connectivity? connectivity;

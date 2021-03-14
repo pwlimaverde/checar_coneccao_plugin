@@ -1,4 +1,3 @@
-import 'package:checar_coneccao_plugin/src/utilitarios/erros_coneccao.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:return_success_or_error/return_success_or_error.dart';
 
@@ -17,11 +16,11 @@ class ConnectivityDatasource implements Datasource<bool, NoParams> {
     try {
       final result = await isOnline;
       if (!result) {
-        throw ErrorConeccao(mensagem: "${parameters.messageError}");
+        throw ErrorReturnResult(message: "${parameters.messageError}");
       }
       return result;
     } catch (e) {
-      throw ErrorConeccao(mensagem: "${parameters.messageError}");
+      throw ErrorReturnResult(message: "${parameters.messageError}");
     }
   }
 }
