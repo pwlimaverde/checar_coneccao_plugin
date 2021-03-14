@@ -1,6 +1,5 @@
-import 'package:checar_coneccao_plugin/src/utilitarios/erros_coneccao.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
+import 'package:return_success_or_error/return_success_or_error.dart';
 
 class ConnectivityDatasource implements Datasource<bool, NoParams> {
   final Connectivity connectivity;
@@ -13,15 +12,15 @@ class ConnectivityDatasource implements Datasource<bool, NoParams> {
   }
 
   @override
-  Future<bool> call({required NoParams parametros}) async {
+  Future<bool> call({required NoParams parameters}) async {
     try {
       final result = await isOnline;
       if (!result) {
-        throw ErrorConeccao(mensagem: "${parametros.mensagemErro}");
+        throw ErrorReturnResult(message: "${parameters.messageError}");
       }
       return result;
     } catch (e) {
-      throw ErrorConeccao(mensagem: "${parametros.mensagemErro}");
+      throw ErrorReturnResult(message: "${parameters.messageError}");
     }
   }
 }

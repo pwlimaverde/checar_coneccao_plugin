@@ -2,7 +2,7 @@ import 'package:checar_coneccao_plugin/src/presenter/checar_coneccao_presenter.d
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
+import 'package:return_success_or_error/return_success_or_error.dart';
 
 class ChecarConeccao extends Mock implements Connectivity {}
 
@@ -22,10 +22,10 @@ void main() {
       mostrarTempoExecucao: true,
     ).consultaConectividade();
     print("teste result - ${result.fold(
-      sucesso: (value) => value.resultado,
-      erro: (value) => value.erro,
+      success: (value) => value.result,
+      error: (value) => value.error,
     )}");
-    expect(result, isA<SucessoRetorno<bool>>());
+    expect(result, isA<SuccessReturn<bool>>());
   });
 
   test('Deve retornar um sucesso com true Coneção mobile', () async {
@@ -37,10 +37,10 @@ void main() {
       mostrarTempoExecucao: true,
     ).consultaConectividade();
     print("teste result - ${result.fold(
-      sucesso: (value) => value.resultado,
-      erro: (value) => value.erro,
+      success: (value) => value.result,
+      error: (value) => value.error,
     )}");
-    expect(result, isA<SucessoRetorno<bool>>());
+    expect(result, isA<SuccessReturn<bool>>());
   });
 
   test(
@@ -54,10 +54,10 @@ void main() {
       mostrarTempoExecucao: true,
     ).consultaConectividade();
     print("teste result - ${result.fold(
-      sucesso: (value) => value.resultado,
-      erro: (value) => value.erro,
+      success: (value) => value.result,
+      error: (value) => value.error,
     )}");
-    expect(result, isA<ErroRetorno<bool>>());
+    expect(result, isA<ErrorReturn<bool>>());
   });
 
   test('Deve retornar um ErroRetorno com Você está offline Cod.02-1 Exeption',
@@ -67,9 +67,9 @@ void main() {
             connectivity: data, mostrarTempoExecucao: true)
         .consultaConectividade();
     print("teste result - ${result.fold(
-      sucesso: (value) => value.resultado,
-      erro: (value) => value.erro,
+      success: (value) => value.result,
+      error: (value) => value.error,
     )}");
-    expect(result, isA<ErroRetorno<bool>>());
+    expect(result, isA<ErrorReturn<bool>>());
   });
 }

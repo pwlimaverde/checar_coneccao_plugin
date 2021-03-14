@@ -1,9 +1,8 @@
 import 'package:checar_coneccao_plugin/src/datasources/connectivity_datasource.dart';
-import 'package:checar_coneccao_plugin/src/utilitarios/erros_coneccao.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
+import 'package:return_success_or_error/return_success_or_error.dart';
 
 class ChecarConeccaoMock extends Mock implements Connectivity {}
 
@@ -21,7 +20,7 @@ void main() {
         .calls(#checkConnectivity)
         .thenAnswer((_) => Future.value(Future.value(ConnectivityResult.wifi)));
     final result = await datasource(
-        parametros: NoParams(mensagemErro: "Erro ao Checar a Conecção"));
+        parameters: NoParams(messageError: "Erro ao Checar a Conecção"));
     print("teste result - $result");
     expect(result, equals(true));
   });
@@ -30,7 +29,7 @@ void main() {
     when(data).calls(#checkConnectivity).thenAnswer(
         (_) => Future.value(Future.value(ConnectivityResult.mobile)));
     final result = await datasource(
-        parametros: NoParams(mensagemErro: "Erro ao Checar a Conecção"));
+        parameters: NoParams(messageError: "Erro ao Checar a Conecção"));
     print("teste result - $result");
     expect(result, equals(true));
   });
@@ -43,9 +42,9 @@ void main() {
         .thenAnswer((_) => Future.value(Future.value(ConnectivityResult.none)));
     expect(
         () async => await datasource(
-              parametros: NoParams(mensagemErro: "Você está offline"),
+              parameters: NoParams(messageError: "Você está offline"),
             ),
-        throwsA(isA<ErrorConeccao>()));
+        throwsA(isA<ErrorReturnResult>()));
   });
 
   test('Deve retornar um ErroRetorno com Você está offline Cod.02-1 Exeption',
@@ -53,8 +52,8 @@ void main() {
     when(data).calls(#checkConnectivity).thenThrow(Exception());
     expect(
         () async => await datasource(
-              parametros: NoParams(mensagemErro: "Você está offline"),
+              parameters: NoParams(messageError: "Você está offline"),
             ),
-        throwsA(isA<ErrorConeccao>()));
+        throwsA(isA<ErrorReturnResult>()));
   });
 }

@@ -1,6 +1,7 @@
-import 'package:checar_coneccao_plugin/src/datasources/connectivity_datasource.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
+import 'package:return_success_or_error/return_success_or_error.dart';
+
+import '../datasources/connectivity_datasource.dart';
 
 class ChecarConeccaoPresenter {
   final Connectivity? connectivity;
@@ -11,14 +12,14 @@ class ChecarConeccaoPresenter {
     required this.mostrarTempoExecucao,
   });
 
-  Future<RetornoSucessoOuErro<bool>> consultaConectividade() async {
-    final resultado = await RetornoResultadoPresenter<bool>(
-      mostrarTempoExecucao: mostrarTempoExecucao,
-      nomeFeature: "Checar Conecção",
+  Future<ReturnSuccessOrError<bool>> consultaConectividade() async {
+    final resultado = await ReturnResultPresenter<bool>(
+      showRuntimeMilliseconds: mostrarTempoExecucao,
+      nameFeature: "Checar Conecção",
       datasource: ConnectivityDatasource(
         connectivity: connectivity ?? Connectivity(),
       ),
-    ).retornoResultado(parametros: NoParams(mensagemErro: "Você está offline"));
+    ).returnResult(parameters: NoParams(messageError: "Você está offline"));
 
     return resultado;
   }
