@@ -1,3 +1,11 @@
+## 1.1.5
+
+* TODO: Correção de documentação.
+
+## 1.1.4
+
+* TODO: Refator para return_success_or_error 0.1.5.
+
 ## 1.1.3
 
 * TODO: Refator para return_success_or_error.
