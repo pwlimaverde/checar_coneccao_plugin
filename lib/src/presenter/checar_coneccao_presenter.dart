@@ -1,3 +1,4 @@
+import 'package:checar_coneccao_plugin/src/core/erros.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:return_success_or_error/return_success_or_error.dart';
 
@@ -19,7 +20,13 @@ class ChecarConeccaoPresenter {
       datasource: ConnectivityDatasource(
         connectivity: connectivity ?? Connectivity(),
       ),
-    )(parameters: NoParams(error: ErrorReturnResult(message: "")));
+    )(
+      parameters: NoParams(
+        error: ErroConexao(
+          message: "Você está offline",
+        ),
+      ),
+    );
 
     return resultado;
   }

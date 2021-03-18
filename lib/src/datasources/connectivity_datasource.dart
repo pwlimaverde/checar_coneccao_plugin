@@ -13,16 +13,14 @@ class ConnectivityDatasource implements Datasource<bool> {
 
   @override
   Future<bool> call({required ParametersReturnResult parameters}) async {
-    final String messageError = parameters.error.message;
     try {
       final result = await isOnline;
       if (!result) {
-        throw parameters.error..message = "Você está offline - Cod. 03-1";
+        throw parameters.error;
       }
       return result;
     } catch (e) {
-      throw parameters.error
-        ..message = "$messageError - Cod. 03-2 --- Catch: $e";
+      throw parameters.error;
     }
   }
 }
