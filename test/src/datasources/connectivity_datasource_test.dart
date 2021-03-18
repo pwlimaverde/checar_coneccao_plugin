@@ -1,3 +1,4 @@
+import 'package:checar_coneccao_plugin/src/core/erros.dart';
 import 'package:checar_coneccao_plugin/src/datasources/connectivity_datasource.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,7 +9,7 @@ class ChecarConeccaoMock extends Mock implements Connectivity {}
 
 void main() {
   late Connectivity data;
-  late Datasource<bool, NoParams> datasource;
+  late Datasource<bool> datasource;
 
   setUp(() {
     data = ChecarConeccaoMock();
@@ -20,7 +21,12 @@ void main() {
         .calls(#checkConnectivity)
         .thenAnswer((_) => Future.value(Future.value(ConnectivityResult.wifi)));
     final result = await datasource(
-        parameters: NoParams(messageError: "Erro ao Checar a Conecção"));
+      parameters: NoParams(
+        error: ErroConexao(
+          message: "Você está offline",
+        ),
+      ),
+    );
     print("teste result - $result");
     expect(result, equals(true));
   });
@@ -29,7 +35,12 @@ void main() {
     when(data).calls(#checkConnectivity).thenAnswer(
         (_) => Future.value(Future.value(ConnectivityResult.mobile)));
     final result = await datasource(
-        parameters: NoParams(messageError: "Erro ao Checar a Conecção"));
+      parameters: NoParams(
+        error: ErroConexao(
+          message: "Você está offline",
+        ),
+      ),
+    );
     print("teste result - $result");
     expect(result, equals(true));
   });
@@ -42,9 +53,13 @@ void main() {
         .thenAnswer((_) => Future.value(Future.value(ConnectivityResult.none)));
     expect(
         () async => await datasource(
-              parameters: NoParams(messageError: "Você está offline"),
+              parameters: NoParams(
+                error: ErroConexao(
+                  message: "Você está offline",
+                ),
+              ),
             ),
-        throwsA(isA<ErrorReturnResult>()));
+        throwsA(isA<ErroConexao>()));
   });
 
   test('Deve retornar um ErroRetorno com Você está offline Cod.02-1 Exeption',
@@ -52,8 +67,12 @@ void main() {
     when(data).calls(#checkConnectivity).thenThrow(Exception());
     expect(
         () async => await datasource(
-              parameters: NoParams(messageError: "Você está offline"),
+              parameters: NoParams(
+                error: ErroConexao(
+                  message: "Você está offline",
+                ),
+              ),
             ),
-        throwsA(isA<ErrorReturnResult>()));
+        throwsA(isA<ErroConexao>()));
   });
 }
